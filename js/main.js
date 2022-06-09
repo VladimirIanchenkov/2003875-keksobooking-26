@@ -3,23 +3,19 @@ function getRandomRange(min, max) {
     return 'Error';
   }
   if (min > max) {
-    const tempNumber = max;
-    max = min;
-    min = tempNumber;
+    return Math.random() * (min - max) + max;
   }
-  return Math.random() * (max - min) + min;
+  return (Math.random() * (max - min) + min).toFixed(0);
 }
 
 getRandomRange(1, 2);
 
 function getRandomFromRange(min, max, decimalDigit) {
-  if (min === max || min < 0 || max < 0) {
+  if (min === max || min < 0 || max < 0 || decimalDigit < 0) {
     return 'Error';
   }
   if (min > max) {
-    const tempNumber = max;
-    max = min;
-    min = tempNumber;
+    return Math.random() * (min - max) + max;
   }
   return (Math.random() * (max - min) + min).toFixed(decimalDigit);
 }
