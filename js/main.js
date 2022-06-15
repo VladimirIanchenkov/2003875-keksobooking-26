@@ -76,6 +76,4 @@ const createObject = (item, index) => {
   };
 };
 
-const createAdvertsArray = Array.from({length: ADVERTS_ARRAY_LENGTH}, createObject);
-
-console.log(createAdvertsArray);
+Array.from({length: ADVERTS_ARRAY_LENGTH}, createObject);
