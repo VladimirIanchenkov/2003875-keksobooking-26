@@ -1,28 +1,16 @@
-/*
-function getRandomRange(min, max) {
-  if (min === max || min < 0 || max < 0) {
-    return 'Error';
-  }
-  if (min > max) {
-    return (Math.random() * (min - max) + max).toFixed(0);
-  }
-  return (Math.random() * (max - min) + min).toFixed(0);
-}
-
-getRandomRange(1, 2);
-
-function getRandomFromRange(min, max, decimalDigit) {
-  if (min === max || min < 0 || max < 0 || decimalDigit < 0) {
-    return 'Error';
-  }
-  if (min > max) {
-    return (Math.random() * (min - max) + max).toFixed(decimalDigit);
-  }
-  return (Math.random() * (max - min) + min).toFixed(decimalDigit);
-}
-
-getRandomFromRange(1, 10, 3);
-*/
+const TITLE_VALUE = 'Большой, светлый пентхаус в центре Токио';
+const PRICE_UPPER_LIMIT = 100000;
+const TYPE_ARRAY = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const ROOMS_UPPER_LIMIT = 20;
+const GUESTS_UPPER_LIMIT = 3;
+const CHECK_TIME_ARRAY = ['12:00', '13:00', '14:00'];
+const FEATURES_ARRAY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const DESCRIPTION_VALUE = 'Предлагается шикарный пентхаус площадью 450 квадратных метров на 15 этаже жилого комплекса «Okinawa House».';
+const PHOTOS_ARRAY = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
+];
+const ADVERTS_ARRAY_LENGTH = 10;
 
 //Функция, возвращающая случайное целое число из переданного диапазона включительно:
 function getRandomPositiveInteger (a, b) {
@@ -40,88 +28,54 @@ function getRandomPositiveFloat (a, b, digits = 1) {
   return +result.toFixed(digits);
 }
 
-const titleValue = 'Большой, светлый пентхаус в центре Токио';
-const priceUpperLimit = 100000;
-const typeArray = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
-const roomsUpperLimit = 20;
-const guestsUpperLimit = 3;
-const checkTimeArray = ['12:00', '13:00', '14:00'];
-const featuresArray = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const descriptionValue = 'Предлагается шикарный пентхаус площадью 450 квадратных метров на 15 этаже жилого комплекса «Okinawa House».';
-const photosArray = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
-];
-
-const AdvtsArrayLength = 10;
-
 //Функция, возвращающая случайное значение из массива
-function arrayRandomElement (elements) {
+function getArrayRandomElement (elements) {
   return elements[getRandomPositiveInteger(0, elements.length - 1)];
 }
 
 //Функция, возвращающая несколько случайных значений из массива
-function arrayRandomElements (elements) {
-  const newArrayRandomElements = elements.slice();
-  const getArrayLength = getRandomPositiveInteger(1, newArrayRandomElements.length);
-  for (let i = 0; i < getArrayLength; i++) {
-    newArrayRandomElements.splice(i, getRandomPositiveInteger(i, getArrayLength - 1));
+function getArrayRandomElements (elements) {
+  const newArrayRandomElements = [];
+  for (let i = 0; i < elements.length; i++) {
+    if (getRandomPositiveInteger(0, 1)) {
+      newArrayRandomElements.push(elements[i]);
+    }
   }
   return newArrayRandomElements;
 }
 
-//Создание массива из адресов изображений
-const avatarAdressArray = [];
-for (let i = 1; i <= AdvtsArrayLength; i++) {
-  avatarAdressArray.push(`img/avatars/user${i === 10 ? i : `0${i}`}.png`);
-}
-
-//Функция, перемешивающая массив из адресов изображений
-function shuffle (array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-const avatarShuffledAdressArray = shuffle(avatarAdressArray);
-
 //Функция, создающая объект объявления
-const createObject = () => {
-  const AUTHOR = {
-    avatar : '',
+const createObject = (item, index) => {
+  const author = {
+    avatar: `img/avatars/user${index >= 10 ? index : `0${index}`}.png`,
   };
 
-  const latValue = getRandomPositiveFloat(35.65000, 35.70000, 5);
-  const lngValue = getRandomPositiveFloat(139.70000, 139.80000, 5);
-  const LOCATION = {
-    lat : latValue,
-    lng : lngValue,
+  const location = {
+    lat : getRandomPositiveFloat(35.65, 35.7, 5),
+    lng : getRandomPositiveFloat(139.7, 139.8, 5),
   };
 
-  const OFFER = {
-    title: titleValue,
-    address: LOCATION,
-    price: getRandomPositiveInteger(0, priceUpperLimit),
-    type: arrayRandomElement(typeArray),
-    rooms: getRandomPositiveInteger(0, roomsUpperLimit),
-    guests: getRandomPositiveInteger(0, guestsUpperLimit),
-    checkin: arrayRandomElement(checkTimeArray),
-    checkout: arrayRandomElement(checkTimeArray),
-    features: arrayRandomElements (featuresArray),
-    description: descriptionValue,
-    photos: arrayRandomElements (photosArray),
+  const offer = {
+    title: TITLE_VALUE,
+    address: `${location.lat}, ${location.lng}`,
+    price: getRandomPositiveInteger(0, PRICE_UPPER_LIMIT),
+    type: getArrayRandomElement(TYPE_ARRAY),
+    rooms: getRandomPositiveInteger(0, ROOMS_UPPER_LIMIT),
+    guests: getRandomPositiveInteger(0, GUESTS_UPPER_LIMIT),
+    checkin: getArrayRandomElement(CHECK_TIME_ARRAY),
+    checkout: getArrayRandomElement(CHECK_TIME_ARRAY),
+    features: getArrayRandomElements(FEATURES_ARRAY),
+    description: DESCRIPTION_VALUE,
+    photos: getArrayRandomElements(PHOTOS_ARRAY),
   };
+
   return {
-    AUTHOR,
-    OFFER,
-    LOCATION,
+    author,
+    offer,
+    location,
   };
 };
 
-const createAdvtsArray = Array.from({length: AdvtsArrayLength}, createObject);
+const createAdvertsArray = Array.from({length: ADVERTS_ARRAY_LENGTH}, createObject);
 
-//Присвоение адресов изображений объектам из перемашанного массива
-for (let i = 0; i < avatarShuffledAdressArray.length; i++) {
-  createAdvtsArray[i].AUTHOR.avatar = avatarShuffledAdressArray[i];
-}
+console.log(createAdvertsArray);
