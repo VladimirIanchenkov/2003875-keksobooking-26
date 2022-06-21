@@ -30,7 +30,44 @@ function getArrayRandomElements (elements) {
   return newArrayRandomElements;
 }
 
-export {getRandomPositiveInteger};
-export {getRandomPositiveFloat};
-export {getArrayRandomElement};
-export {getArrayRandomElements};
+//Функция-переводчик элементов
+function translateItem (item) {
+  if (item === 'flat'){
+    item = 'Квартира';
+  } else if (item === 'bungalow') {
+    item = 'Бунгало';
+  } else if (item === 'house') {
+    item = 'Дом';
+  } else if (item === 'palace') {
+    item = 'Дворец';
+  } else if (item === 'hotel') {
+    item = 'Отель';
+  }
+  return item;
+}
+
+//Функция склонения по числам
+function numWord (value, words){
+  value = Math.abs(value) % 100;
+  const num = value % 10;
+  if (value > 10 && value < 20) {
+    return words[2];
+  }
+  if (num > 1 && num < 5) {
+    return words[1];
+  }
+  if (num === 1) {
+    return words[0];
+  }
+  return words[2];
+}
+
+//Функция проверки пустого содержимого
+function infoCheck (item) {
+  if (item.textContent === '') {
+    item.classList.add('visually-hidden');
+  }
+}
+
+export {getRandomPositiveInteger, getRandomPositiveFloat, getArrayRandomElement, getArrayRandomElements,
+  translateItem, numWord, infoCheck};
