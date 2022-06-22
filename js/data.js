@@ -15,7 +15,6 @@ const PHOTOS_ARRAY = ['https://assets.htmlacademy.ru/content/intensive/javascrip
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
-const ADVERTS_ARRAY_LENGTH = 10;
 
 //Функция, создающая объект объявления
 const createObject = (item, index) => {
@@ -49,6 +48,6 @@ const createObject = (item, index) => {
   };
 };
 
-const createAdverts = () => Array.from({length: ADVERTS_ARRAY_LENGTH}, createObject);
+const createAdverts = (count) => Array.from({length: count}, createObject);
 
 export {createAdverts};
