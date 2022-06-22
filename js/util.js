@@ -65,7 +65,7 @@ function numWord (value, words){
 //Функция проверки пустого содержимого
 function infoCheck (item) {
   if (item.textContent === '') {
-    item.classList.add('visually-hidden');
+    item.classList.add('hidden');
   }
 }
 
