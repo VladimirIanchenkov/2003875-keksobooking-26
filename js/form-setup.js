@@ -24,4 +24,40 @@ function switchToEnabled (classToEnable) {
 switchToEnabled('ad-form');
 switchToEnabled('map__filters');
 
-export {switchToDisabled};
+// Валидация формы
+// Валидация заголовка объявления
+const userForm = document.querySelector('.ad-form');
+const pristine = new Pristine(userForm, {
+  classTo: 'ad-form__element',
+  errorTextParent: 'ad-form__element',
+  errorTextClass: 'ad-form__error-text',
+});
+
+// Валидация количества комнат и гостей
+const roomsField = userForm.querySelector('#room_number');
+const guestsField = userForm.querySelector('#capacity');
+const reservationOption = {
+  '1': ['1'],
+  '2' : ['2', '1'],
+  '3' : ['3', '2', '1'],
+  '100' : ['0'],
+};
+
+function validateReservation () {
+  return reservationOption[roomsField.value].includes(guestsField.value);
+}
+
+function getReservationErrorMessage () {
+  return `Размещение ${guestsField.value} ${guestsField.value === '1' ? 'гостя' : 'гостей'} в ${roomsField.value} ${roomsField.value === '1' ? 'комнате' : 'комнатах'} невозможно`;
+}
+
+pristine.addValidator(guestsField, validateReservation, getReservationErrorMessage);
+
+userForm.addEventListener('submit', (evt) => {
+  const isValid = pristine.validate();
+  if (!isValid) {
+    evt.preventDefault();
+  }
+});
+
+export {switchToDisabled, switchToEnabled};
