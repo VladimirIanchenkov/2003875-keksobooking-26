@@ -30,11 +30,10 @@ similarAdverts.forEach((card) => {
   // Выводит фотографии из списка offer.photos
   const photosContainer = cardItem.querySelector('.popup__photos');
   photosContainer.innerHTML = '';
-  const photoItems = card.offer.photos;
-  photoItems.forEach((adress) => {
+  card.offer.photos.forEach((adress) => {
     const photo = popupPhotoTemplate.cloneNode(true);
     photo.src = adress;
-    cardItem.querySelector('.popup__photos').appendChild(photo);
+    photosContainer.appendChild(photo);
   });
   // Выводит фотографии для автарок
   cardItem.querySelector('.popup__avatar').src = card.author.avatar;

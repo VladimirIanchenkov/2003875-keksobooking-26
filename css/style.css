@@ -1007,6 +1007,11 @@ fieldset {
   overflow: hidden;
 }
 
+.ad-form__error-text {
+  font-size: 0.9em;
+  color: #ff5635;
+}
+
 .hidden {
   display: none;
 }
