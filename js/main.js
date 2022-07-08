@@ -1,7 +1,7 @@
 import './util.js';
-import './popup.js';
+import './map.js';
+import './page-status.js';
 import './form-setup.js';
-import './form-validation.js';
 import { createAdverts } from './data.js';
 
 createAdverts();

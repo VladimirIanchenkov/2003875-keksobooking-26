@@ -48,6 +48,8 @@ const createObject = (item, index) => {
   };
 };
 
+//Создание массива из 10 объявлений
 const createAdverts = (count) => Array.from({length: count}, createObject);
+const similarAdverts = createAdverts(10);
 
-export {createAdverts};
+export {createAdverts, similarAdverts};
