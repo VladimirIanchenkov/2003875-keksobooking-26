@@ -69,5 +69,63 @@ function infoCheck (item) {
   }
 }
 
+function onEscapeKeydown (item) {
+  const isEscapeKey = (evt) => evt.key === 'Escape';
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      item.classList.add('hidden');
+    }
+  });
+}
+
+function onScreenClick (item) {
+  window.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    item.classList.add('hidden');
+  });
+}
+
+// Функция отрисовки сообщения об успешной отправке
+const showSuccess = () => {
+  const succeessMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+  const messageItem = succeessMessageTemplate.cloneNode(true);
+  document.body.append(messageItem);
+  onEscapeKeydown(messageItem);
+  onScreenClick(messageItem);
+};
+
+// Функция отрисовки сообщения об ошибке
+const showAlert = () => {
+  const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+  const messageItem = errorMessageTemplate.cloneNode(true);
+  document.body.append(messageItem);
+  onEscapeKeydown(messageItem);
+  const errorButton = messageItem.querySelector('.error__button');
+  errorButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    messageItem.classList.add('hidden');
+  });
+  onScreenClick(messageItem);
+};
+
+const showServerAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '20px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.color = '#ffffff';
+  alertContainer.style.backgroundColor = '#ff5635';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+};
+
 export {getRandomPositiveInteger, getRandomPositiveFloat, getArrayRandomElement, getArrayRandomElements,
-  translateItem, numWord, infoCheck};
+  translateItem, numWord, infoCheck, showAlert, showSuccess, showServerAlert};
