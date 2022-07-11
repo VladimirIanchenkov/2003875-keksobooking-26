@@ -4,15 +4,26 @@ import './util.js';
 import './popup.js';
 import './api.js';
 import {getData} from './api.js';
-import {createAdvertsBaloons} from './map.js';
+import {createAdvertsBaloons, switchToEnabled} from './map.js';
 import {showServerAlert} from './util.js';
 import {setUserFormSubmit, pageReset} from './form-setup.js';
-
-const SIMILAR_CARD_COUNT = 10;
+import {setTypeChange, setPriceChange, setRoomsChange, setGuestsChange, setWifiChange, setDishwasherChange, setParkingChange,
+  setWasherChange, setElevatorChange, setConditionerChange} from './filters.js';
 
 getData(
   (cards) => {
-    createAdvertsBaloons(cards.slice(0, SIMILAR_CARD_COUNT));
+    createAdvertsBaloons(cards);
+    switchToEnabled('map__filters');
+    setTypeChange(() => createAdvertsBaloons(cards));
+    setPriceChange(() => createAdvertsBaloons(cards));
+    setRoomsChange(() => createAdvertsBaloons(cards));
+    setGuestsChange(() => createAdvertsBaloons(cards));
+    setWifiChange(() => createAdvertsBaloons(cards));
+    setDishwasherChange(() => createAdvertsBaloons(cards));
+    setParkingChange(() => createAdvertsBaloons(cards));
+    setWasherChange(() => createAdvertsBaloons(cards));
+    setElevatorChange(() => createAdvertsBaloons(cards));
+    setConditionerChange(() => createAdvertsBaloons(cards));
   },
   () => {
     showServerAlert('Не удалось загрузить на карту данные о похожих объявлениях с сервера. Попробуйте обновить страницу');
@@ -20,5 +31,3 @@ getData(
 );
 
 setUserFormSubmit(pageReset);
-
-export {SIMILAR_CARD_COUNT};

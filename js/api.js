@@ -20,13 +20,14 @@ const sendData = (onSuccess, onFail, body) => {
       method: 'POST',
       body,
     },
-  ).then((response) => {
-    if (response.ok) {
-      onSuccess();
-    } else {
-      onFail();
-    }
-  })
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else {
+        onFail();
+      }
+    })
     .catch(() => {
       onFail();
     });

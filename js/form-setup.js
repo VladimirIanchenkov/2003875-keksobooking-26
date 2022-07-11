@@ -1,7 +1,6 @@
 import {numWord, showAlert, showSuccess} from './util.js';
 import {resetMainPinMarker, createAdvertsBaloons, closeAllPoups} from './map.js';
 import {getData, sendData} from './api.js';
-import {SIMILAR_CARD_COUNT} from './main.js';
 
 const DEFAULT_PRICE_FIELD_VALUE = 1000;
 const reservationOption = {
@@ -112,7 +111,7 @@ function pageReset () {
   closeAllPoups();
   sliderElement.noUiSlider.set(DEFAULT_PRICE_FIELD_VALUE);
   getData((cards) => {
-    createAdvertsBaloons(cards.slice(0, SIMILAR_CARD_COUNT));
+    createAdvertsBaloons(cards);
   });
 }
 
@@ -156,4 +155,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export {userForm, setUserFormSubmit, pageReset};
+export {setUserFormSubmit, pageReset};

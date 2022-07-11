@@ -1,11 +1,12 @@
 import {createCustomPopup} from './popup.js';
+import {compareCards, compareCardsFeatures} from './filters.js';
 
 const userForm = document.querySelector('.ad-form');
 const DEFAULT_LATITUDE = 35.67898;
 const DEFAULT_LONGITUDE = 139.76918;
-const filters = document.querySelector('.map__filters');
-const housingTypeFilter = filters.querySelector('#housing-type');
+const SIMILAR_CARD_COUNT = 10;
 const addressField = userForm.querySelector('#address');
+
 
 // Фукнция активирует элементы формы по классу формы (при вызове класс элемента указывается без '.')
 function switchToEnabled (classToEnable) {
@@ -21,7 +22,6 @@ function switchToEnabled (classToEnable) {
 const map = L.map('map-canvas')
   .on('load', () => {
     switchToEnabled('ad-form');
-    switchToEnabled('map__filters');
   })
   .setView({
     lat: DEFAULT_LATITUDE,
@@ -55,10 +55,10 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
-addressField.value = `lat: ${DEFAULT_LATITUDE}, lng: ${DEFAULT_LONGITUDE}`;
+addressField.value = `${DEFAULT_LATITUDE}, ${DEFAULT_LONGITUDE}`;
 
 mainPinMarker.on('moveend', (evt) => {
-  addressField.value = `lat: ${evt.target.getLatLng().lat.toFixed(5)}, lng: ${evt.target.getLatLng().lng.toFixed(5)}`;
+  addressField.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
 // Ресет маркера пользователя
@@ -73,7 +73,7 @@ function resetMainPinMarker () {
     lng: DEFAULT_LONGITUDE,
   }, 13);
 
-  addressField.value = `lat: ${DEFAULT_LATITUDE}, lng: ${DEFAULT_LONGITUDE}`;
+  addressField.value = `${DEFAULT_LATITUDE}, ${DEFAULT_LONGITUDE}`;
 }
 
 // Закрывает открытые попапы
@@ -88,9 +88,9 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const createAdvertsBaloons = function (points) {
-  const markerGroup = L.layerGroup().addTo(map);
+const markerGroup = L.layerGroup().addTo(map);
 
+const createAdvertsBaloons = function (points) {
   const createMarker = (point) => {
     const {location:{lat, lng}} = point;
     const marker = L.marker(
@@ -108,22 +108,10 @@ const createAdvertsBaloons = function (points) {
       .bindPopup(createCustomPopup(point));
   };
 
-  points.forEach((point) => {
+  markerGroup.clearLayers();
+  points.slice().filter(compareCards).sort(compareCardsFeatures).slice(0, SIMILAR_CARD_COUNT).forEach((point) => {
     createMarker(point);
-  });
-
-  // Фильтрация карты
-  housingTypeFilter.addEventListener('change', () => {
-    markerGroup.clearLayers();
-    points.filter((element) => element.offer.type === housingTypeFilter.value).forEach((point) => {
-      createMarker(point);
-    });
-    if (housingTypeFilter.value === 'any') {
-      points.forEach((point) => {
-        createMarker(point);
-      });
-    }
   });
 };
 
-export {createAdvertsBaloons, resetMainPinMarker, closeAllPoups};
+export {createAdvertsBaloons, resetMainPinMarker, closeAllPoups, switchToEnabled};

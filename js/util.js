@@ -70,21 +70,22 @@ function infoCheck (item) {
 }
 
 function onEscapeKeydown (item) {
-  const isEscapeKey = (evt) => evt.key === 'Escape';
   document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
+    if (evt.key === 'Escape') {
       evt.preventDefault();
-      item.classList.add('hidden');
+      item.remove();
     }
   });
 }
 
 function onScreenClick (item) {
   window.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    item.classList.add('hidden');
+    if (!item.contains(evt.target) || item.contains(evt.target)) {
+      item.remove();
+    }
   });
 }
+
 
 // Функция отрисовки сообщения об успешной отправке
 const showSuccess = () => {
@@ -104,7 +105,7 @@ const showAlert = () => {
   const errorButton = messageItem.querySelector('.error__button');
   errorButton.addEventListener('click', (evt) => {
     evt.preventDefault();
-    messageItem.classList.add('hidden');
+    messageItem.remove();
   });
   onScreenClick(messageItem);
 };
