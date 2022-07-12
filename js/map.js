@@ -7,7 +7,6 @@ const DEFAULT_LONGITUDE = 139.76918;
 const SIMILAR_CARD_COUNT = 10;
 const addressField = userForm.querySelector('#address');
 
-
 // Фукнция активирует элементы формы по классу формы (при вызове класс элемента указывается без '.')
 function switchToEnabled (classToEnable) {
   const container = document.querySelector(`.${classToEnable}`);
@@ -91,6 +90,7 @@ const icon = L.icon({
 const markerGroup = L.layerGroup().addTo(map);
 
 const createAdvertsBaloons = function (points) {
+
   const createMarker = (point) => {
     const {location:{lat, lng}} = point;
     const marker = L.marker(
@@ -107,7 +107,6 @@ const createAdvertsBaloons = function (points) {
       .addTo(markerGroup)
       .bindPopup(createCustomPopup(point));
   };
-
   markerGroup.clearLayers();
   points.slice().filter(compareCards).sort(compareCardsFeatures).slice(0, SIMILAR_CARD_COUNT).forEach((point) => {
     createMarker(point);

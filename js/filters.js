@@ -84,8 +84,8 @@ const priceTranslator = (price) => {
   return value;
 };
 
+// Фильтрация объявлений по соновным фильтрам
 const compareCards = (card) => {
-  // console.log(card.offer.features, wifiFilter.value);
   if (card.offer.type === typeFilter.value || typeFilter.value === 'any') {
     if (priceTranslator(card.offer.price) === priceFilter.value || priceFilter.value === 'any') {
       if (card.offer.rooms === Number(roomsFilter.value) || roomsFilter.value === 'any') {
@@ -95,6 +95,7 @@ const compareCards = (card) => {
   return false;
 };
 
+// Функции для сортировки
 const getCardRank = (card) => {
   let rank = 0;
   if (card.offer.features) {

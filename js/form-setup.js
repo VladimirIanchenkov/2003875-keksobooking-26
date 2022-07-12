@@ -26,6 +26,8 @@ const timeOut = userForm.querySelector('#timeout');
 const select = userForm.querySelector('#type');
 const submitButton = userForm.querySelector('.ad-form__submit');
 const resetButton = userForm.querySelector('.ad-form__reset');
+const avatarPreview = userForm.querySelector('.ad-form-header__preview').querySelector('img');
+const photoContainer = userForm.querySelector('.ad-form__photo');
 
 const pristine = new Pristine(userForm, {
   classTo: 'ad-form__element',
@@ -113,6 +115,8 @@ function pageReset () {
   getData((cards) => {
     createAdvertsBaloons(cards);
   });
+  avatarPreview.src = './img/muffin-grey.svg';
+  photoContainer.innerHTML = '';
 }
 
 resetButton.addEventListener('click', (evt) => {
