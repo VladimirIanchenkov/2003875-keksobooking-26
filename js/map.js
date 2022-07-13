@@ -1,5 +1,5 @@
 import {createCustomPopup} from './popup.js';
-import {compareCards, compareCardsFeatures} from './filters.js';
+import {/*compareCards, compareCardsFeatures,*/ compareFeatures} from './filters.js';
 
 const userForm = document.querySelector('.ad-form');
 const DEFAULT_LATITUDE = 35.67898;
@@ -76,7 +76,7 @@ function resetMainPinMarker () {
 }
 
 // Закрывает открытые попапы
-function closeAllPoups () {
+function closeAllPopups () {
   map.closePopup();
 }
 
@@ -107,10 +107,11 @@ const createAdvertsBaloons = function (points) {
       .addTo(markerGroup)
       .bindPopup(createCustomPopup(point));
   };
+
   markerGroup.clearLayers();
-  points.slice().filter(compareCards).sort(compareCardsFeatures).slice(0, SIMILAR_CARD_COUNT).forEach((point) => {
+  points/*.filter(compareCards).sort(compareCardsFeatures)*/.filter(compareFeatures)/*.slice(0, SIMILAR_CARD_COUNT)*/.forEach((point) => {
     createMarker(point);
   });
 };
 
-export {createAdvertsBaloons, resetMainPinMarker, closeAllPoups, switchToEnabled};
+export {createAdvertsBaloons, resetMainPinMarker, closeAllPopups, switchToEnabled};

@@ -1,4 +1,4 @@
-import {translateItem, numWord, infoCheck} from './util.js';
+import {translateItem, changeWord, checkNoContent} from './util.js';
 
 // Отрисовывает карточку
 const createCustomPopup = (card) => {
@@ -10,7 +10,7 @@ const createCustomPopup = (card) => {
   cardItem.querySelector('.popup__text--address').textContent = card.offer.address;
   cardItem.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
   cardItem.querySelector('.popup__type').textContent = translateItem(card.offer.type);
-  cardItem.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} ${numWord(card.offer.rooms,['комната','комнаты','комнат'])} для ${card.offer.guests} ${numWord(card.offer.guests,['гостя','гостей','гостей'])}`;
+  cardItem.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} ${changeWord(card.offer.rooms,['комната','комнаты','комнат'])} для ${card.offer.guests} ${changeWord(card.offer.guests,['гостя','гостей','гостей'])}`;
   cardItem.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
   // Выводит все доступные удобства в объявлении
   const featureContainer = cardItem.querySelector('.popup__features');
@@ -27,7 +27,7 @@ const createCustomPopup = (card) => {
   }
   // Выводит описание объекта
   cardItem.querySelector('.popup__description').textContent = card.offer.description;
-  infoCheck(cardItem.querySelector('.popup__description'));
+  checkNoContent(cardItem.querySelector('.popup__description'));
   // Выводит фотографии из списка offer.photos
   const photosContainer = cardItem.querySelector('.popup__photos');
   photosContainer.innerHTML = '';
@@ -38,7 +38,7 @@ const createCustomPopup = (card) => {
       photosContainer.appendChild(photo);
     });
   } else {
-    featureContainer.classList.add('hidden');
+    photosContainer.classList.add('hidden');
   }
   // Выводит фотографии для автарок
   cardItem.querySelector('.popup__avatar').src = card.author.avatar;
