@@ -18,16 +18,6 @@ getData(
   (cards) => {
     createAdvertsBaloons(cards);
     setFormChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
-    // setTypeChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
-    // setPriceChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
-    // setRoomsChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
-    // setGuestsChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
-    // setWifiChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
-    // setDishwasherChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
-    // setParkingChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
-    // setWasherChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
-    // setElevatorChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
-    // setConditionerChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
     switchToEnabled('map__filters');
   },
   () => {

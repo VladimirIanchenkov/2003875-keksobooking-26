@@ -1,10 +1,10 @@
 import {createCustomPopup} from './popup.js';
-import {/*compareCards, compareCardsFeatures,*/ compareFeatures} from './filters.js';
+import {compareCards} from './filters.js';
 
 const userForm = document.querySelector('.ad-form');
 const DEFAULT_LATITUDE = 35.67898;
 const DEFAULT_LONGITUDE = 139.76918;
-// const SIMILAR_CARD_COUNT = 10;
+const SIMILAR_CARD_COUNT = 10;
 const addressField = userForm.querySelector('#address');
 
 // Фукнция активирует элементы формы по классу формы (при вызове класс элемента указывается без '.')
@@ -109,7 +109,7 @@ const createAdvertsBaloons = function (points) {
   };
 
   markerGroup.clearLayers();
-  points/*.filter(compareCards).sort(compareCardsFeatures)*/.filter(compareFeatures)/*.slice(0, SIMILAR_CARD_COUNT)*/.forEach((point) => {
+  points.filter(compareCards).slice(0, SIMILAR_CARD_COUNT).forEach((point) => {
     createMarker(point);
   });
 };
