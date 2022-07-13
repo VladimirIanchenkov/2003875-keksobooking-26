@@ -127,7 +127,6 @@ const compareFeatures = (card) => {
     if (feature.checked && !card.offer.features || feature.checked && !card.offer.features.includes(feature.value)) {
       return false;
     }
-    console.log(card);
     return true;
   });
 };

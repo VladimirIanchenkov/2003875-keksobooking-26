@@ -4,7 +4,7 @@ import {/*compareCards, compareCardsFeatures,*/ compareFeatures} from './filters
 const userForm = document.querySelector('.ad-form');
 const DEFAULT_LATITUDE = 35.67898;
 const DEFAULT_LONGITUDE = 139.76918;
-const SIMILAR_CARD_COUNT = 10;
+// const SIMILAR_CARD_COUNT = 10;
 const addressField = userForm.querySelector('#address');
 
 // Фукнция активирует элементы формы по классу формы (при вызове класс элемента указывается без '.')
