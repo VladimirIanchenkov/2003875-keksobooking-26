@@ -47,7 +47,7 @@ function translateItem (item) {
 }
 
 //Функция склонения по числам
-function numWord (value, words){
+function changeWord (value, words){
   value = Math.abs(value) % 100;
   const num = value % 10;
   if (value > 10 && value < 20) {
@@ -63,7 +63,7 @@ function numWord (value, words){
 }
 
 //Функция проверки пустого содержимого
-function infoCheck (item) {
+function checkNoContent (item) {
   if (item.textContent === '') {
     item.classList.add('hidden');
   }
@@ -156,4 +156,4 @@ function throttle (callback, delayBetweenFrames) {
 }
 
 export {getRandomPositiveInteger, getRandomPositiveFloat, getArrayRandomElement, getArrayRandomElements,
-  translateItem, numWord, infoCheck, showAlert, showSuccess, showServerAlert, debounce, throttle};
+  translateItem, changeWord, checkNoContent, showAlert, showSuccess, showServerAlert, debounce, throttle};

@@ -1,5 +1,5 @@
-import {numWord, showAlert, showSuccess} from './util.js';
-import {resetMainPinMarker, createAdvertsBaloons, closeAllPoups} from './map.js';
+import {changeWord, showAlert, showSuccess} from './util.js';
+import {resetMainPinMarker, createAdvertsBaloons, closeAllPopups} from './map.js';
 import {getData, sendData} from './api.js';
 
 const DEFAULT_PRICE_FIELD_VALUE = 1000;
@@ -41,7 +41,7 @@ function validateReservation () {
 }
 
 function getReservationErrorMessage () {
-  return `Размещение ${guestsField.value} ${numWord(guestsField.value, ['гостя', 'гостей', 'гостей'])} в ${roomsField.value} ${numWord(roomsField.value, ['комнате', 'комнатах', 'комнатах'])} невозможно`;
+  return `Размещение ${guestsField.value} ${changeWord(guestsField.value, ['гостя', 'гостей', 'гостей'])} в ${roomsField.value} ${changeWord(roomsField.value, ['комнате', 'комнатах', 'комнатах'])} невозможно`;
 }
 
 pristine.addValidator(guestsField, validateReservation, getReservationErrorMessage);
@@ -106,23 +106,24 @@ function validatePriceErrorMessage () {
 pristine.addValidator(priceField, validatePrice, validatePriceErrorMessage);
 
 // Ресет страницы
-function pageReset () {
+function resetPage () {
   userForm.reset();
   filterForm.reset();
   resetMainPinMarker();
-  closeAllPoups();
-  sliderElement.noUiSlider.set(DEFAULT_PRICE_FIELD_VALUE);
+  closeAllPopups();
   getData((cards) => {
     createAdvertsBaloons(cards);
   });
+  sliderElement.noUiSlider.set(DEFAULT_PRICE_FIELD_VALUE);
   avatarPreview.src = './img/muffin-grey.svg';
   photoContainer.innerHTML = '';
 }
 
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  pageReset();
+  resetPage();
 });
+
 
 // Блокировка кнопки опубликовать
 const blockSubmitButton = () => {
@@ -159,4 +160,4 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
-export {setUserFormSubmit, pageReset};
+export {setUserFormSubmit, resetPage};
