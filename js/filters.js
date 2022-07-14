@@ -5,17 +5,7 @@ const priceFilter = filters.querySelector('#housing-price');
 const roomsFilter = filters.querySelector('#housing-rooms');
 const guestsFilter = filters.querySelector('#housing-guests');
 
-const translatePrice = (price) => {
-  let value = '';
-  if (price < 10000) {
-    value = 'low';
-  } else if (price >= 10000 && price <= 50000) {
-    value = 'middle';
-  } else {
-    value = 'high';
-  }
-  return value;
-};
+const translatePrice = (price) => {if (price < 10000) {return 'low';} else if (price >= 10000 && price <= 50000) {return 'middle';} return 'high';};
 
 // Фильтрация объявлений по основным фильтрам
 const compareCards = (card) => {

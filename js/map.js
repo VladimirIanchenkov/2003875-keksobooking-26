@@ -1,9 +1,12 @@
 import {createCustomPopup} from './popup.js';
-import {compareCards} from './filters.js';
+import {compareCards, setFormChange} from './filters.js';
+import {getData} from './api.js';
+import {debounce, showServerAlert} from './util.js';
 
 const DEFAULT_LATITUDE = 35.67898;
 const DEFAULT_LONGITUDE = 139.76918;
 const SIMILAR_CARD_COUNT = 10;
+const RENDER_DELAY = 500;
 const userForm = document.querySelector('.ad-form');
 const addressField = userForm.querySelector('#address');
 
@@ -21,6 +24,16 @@ const switchToEnabled = (classToEnable) => {
 const map = L.map('map-canvas')
   .on('load', () => {
     switchToEnabled('ad-form');
+    getData(
+      (cards) => {
+        createAdvertsBaloons(cards);
+        setFormChange(debounce(() => createAdvertsBaloons(cards), RENDER_DELAY));
+        switchToEnabled('map__filters');
+      },
+      () => {
+        showServerAlert('Не удалось загрузить на карту данные о похожих объявлениях с сервера. Попробуйте обновить страницу');
+      },
+    );
   })
   .setView({
     lat: DEFAULT_LATITUDE,
@@ -89,7 +102,7 @@ const icon = L.icon({
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createAdvertsBaloons = function (points) {
+function createAdvertsBaloons (points) {
 
   const createMarker = (point) => {
     const {location:{lat, lng}} = point;
@@ -112,6 +125,6 @@ const createAdvertsBaloons = function (points) {
   points.filter(compareCards).slice(0, SIMILAR_CARD_COUNT).forEach((point) => {
     createMarker(point);
   });
-};
+}
 
 export {createAdvertsBaloons, resetMainPinMarker, closeAllPopups, switchToEnabled};
