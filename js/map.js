@@ -1,21 +1,21 @@
 import {createCustomPopup} from './popup.js';
 import {compareCards} from './filters.js';
 
-const userForm = document.querySelector('.ad-form');
 const DEFAULT_LATITUDE = 35.67898;
 const DEFAULT_LONGITUDE = 139.76918;
 const SIMILAR_CARD_COUNT = 10;
+const userForm = document.querySelector('.ad-form');
 const addressField = userForm.querySelector('#address');
 
 // Фукнция активирует элементы формы по классу формы (при вызове класс элемента указывается без '.')
-function switchToEnabled (classToEnable) {
+const switchToEnabled = (classToEnable) => {
   const container = document.querySelector(`.${classToEnable}`);
   const elements = container.elements;
   for (let i = 0; i < elements.length; i++) {
     elements[i].disabled = false;
   }
   container.classList.remove(`${classToEnable}--disabled`);
-}
+};
 
 // Отрисовывает карту
 const map = L.map('map-canvas')
@@ -76,9 +76,9 @@ function resetMainPinMarker () {
 }
 
 // Закрывает открытые попапы
-function closeAllPopups () {
+const closeAllPopups = () => {
   map.closePopup();
-}
+};
 
 // Создает маркеры похожих объявлений
 const icon = L.icon({

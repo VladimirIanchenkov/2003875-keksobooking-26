@@ -23,11 +23,12 @@ const guestsField = userForm.querySelector('#capacity');
 const priceField = userForm.querySelector('#price');
 const timeIn = userForm.querySelector('#timein');
 const timeOut = userForm.querySelector('#timeout');
-const select = userForm.querySelector('#type');
+const accomodationTypeSelect = userForm.querySelector('#type');
 const submitButton = userForm.querySelector('.ad-form__submit');
 const resetButton = userForm.querySelector('.ad-form__reset');
 const avatarPreview = userForm.querySelector('.ad-form-header__preview').querySelector('img');
 const photoContainer = userForm.querySelector('.ad-form__photo');
+const sliderElement = document.querySelector('.ad-form__slider');
 
 const pristine = new Pristine(userForm, {
   classTo: 'ad-form__element',
@@ -56,8 +57,6 @@ timeOut.addEventListener('change', () => {
 });
 
 // Реализация слайдера
-const sliderElement = document.querySelector('.ad-form__slider');
-
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
@@ -87,26 +86,26 @@ priceField.addEventListener('change', () => {
 });
 
 // Замена плэйсхолдера
-select.addEventListener('change', () => {
-  priceField.placeholder = minAccommodationPrice[select.value];
+accomodationTypeSelect.addEventListener('change', () => {
+  priceField.placeholder = minAccommodationPrice[accomodationTypeSelect.value];
   sliderElement.noUiSlider.updateOptions ({
-    start: minAccommodationPrice[select.value]
+    start: minAccommodationPrice[accomodationTypeSelect.value]
   });
 });
 
 // Валидация минимальной стоимости
 function validatePrice (value) {
-  return value.length && parseInt(value, 10) >= minAccommodationPrice[select.value];
+  return value.length && parseInt(value, 10) >= minAccommodationPrice[accomodationTypeSelect.value];
 }
 
 function validatePriceErrorMessage () {
-  return `Минимальная цена для данного типа жилья - ${minAccommodationPrice[select.value]} руб.`;
+  return `Минимальная цена для данного типа жилья - ${minAccommodationPrice[accomodationTypeSelect.value]} руб.`;
 }
 
 pristine.addValidator(priceField, validatePrice, validatePriceErrorMessage);
 
 // Ресет страницы
-function resetPage () {
+const resetPage = () => {
   userForm.reset();
   filterForm.reset();
   resetMainPinMarker();
@@ -117,7 +116,7 @@ function resetPage () {
   sliderElement.noUiSlider.set(DEFAULT_PRICE_FIELD_VALUE);
   avatarPreview.src = './img/muffin-grey.svg';
   photoContainer.innerHTML = '';
-}
+};
 
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();

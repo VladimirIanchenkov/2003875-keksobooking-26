@@ -1,37 +1,5 @@
-//Функция, возвращающая случайное целое число из переданного диапазона включительно:
-function getRandomPositiveInteger (a, b) {
-  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
-  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-}
-
-//Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно:
-function getRandomPositiveFloat (a, b, digits = 1) {
-  const lower = Math.min(Math.abs(a), Math.abs(b));
-  const upper = Math.max(Math.abs(a), Math.abs(b));
-  const result = Math.random() * (upper - lower) + lower;
-  return +result.toFixed(digits);
-}
-
-//Функция, возвращающая случайное значение из массива
-function getArrayRandomElement (elements) {
-  return elements[getRandomPositiveInteger(0, elements.length - 1)];
-}
-
-//Функция, возвращающая несколько случайных значений из массива
-function getArrayRandomElements (elements) {
-  const newArrayRandomElements = [];
-  for (let i = 0; i < elements.length; i++) {
-    if (getRandomPositiveInteger(0, 1)) {
-      newArrayRandomElements.push(elements[i]);
-    }
-  }
-  return newArrayRandomElements;
-}
-
 //Функция-переводчик элементов
-function translateItem (item) {
+const translateItem = (item) => {
   if (item === 'flat'){
     item = 'Квартира';
   } else if (item === 'bungalow') {
@@ -44,10 +12,10 @@ function translateItem (item) {
     item = 'Отель';
   }
   return item;
-}
+};
 
 //Функция склонения по числам
-function changeWord (value, words){
+const changeWord = (value, words) => {
   value = Math.abs(value) % 100;
   const num = value % 10;
   if (value > 10 && value < 20) {
@@ -60,31 +28,31 @@ function changeWord (value, words){
     return words[0];
   }
   return words[2];
-}
+};
 
 //Функция проверки пустого содержимого
-function checkNoContent (item) {
+const checkNoContent = (item) => {
   if (item.textContent === '') {
     item.classList.add('hidden');
   }
-}
+};
 
-function onEscapeKeydown (item) {
+const onEscapeKeydown = (item) => {
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
       item.remove();
     }
   });
-}
+};
 
-function onScreenClick (item) {
+const onScreenClick = (item) => {
   window.addEventListener('click', (evt) => {
     if (!item.contains(evt.target) || item.contains(evt.target)) {
       item.remove();
     }
   });
-}
+};
 
 
 // Функция отрисовки сообщения об успешной отправке
@@ -140,20 +108,4 @@ function debounce (callback, RENDER_DELAY) {
   };
 }
 
-// Функция взята из интернета и доработана
-// Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_throttle
-function throttle (callback, delayBetweenFrames) {
-  let lastTime = 0;
-
-  return (...rest) => {
-    const now = new Date();
-
-    if (now - lastTime >= delayBetweenFrames) {
-      callback.apply(this, rest);
-      lastTime = now;
-    }
-  };
-}
-
-export {getRandomPositiveInteger, getRandomPositiveFloat, getArrayRandomElement, getArrayRandomElements,
-  translateItem, changeWord, checkNoContent, showAlert, showSuccess, showServerAlert, debounce, throttle};
+export {translateItem, changeWord, checkNoContent, showAlert, showSuccess, showServerAlert, debounce};
