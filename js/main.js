@@ -9,8 +9,7 @@ import {getData} from './api.js';
 import {createAdvertsBaloons, switchToEnabled} from './map.js';
 import {debounce, showServerAlert} from './util.js';
 import {setUserFormSubmit, resetPage} from './form-setup.js';
-import {/*setTypeChange, setPriceChange, setRoomsChange, setGuestsChange, setWifiChange, setDishwasherChange, setParkingChange,
-setWasherChange, setElevatorChange, setConditionerChange*/setFormChange} from './filters.js';
+import {setFormChange} from './filters.js';
 
 const RENDER_DELAY = 500;
 
