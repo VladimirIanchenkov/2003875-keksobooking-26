@@ -3,6 +3,9 @@ import {resetMainPinMarker, createAdvertsBaloons, closeAllPopups} from './map.js
 import {getData, sendData} from './api.js';
 
 const DEFAULT_PRICE_FIELD_VALUE = 1000;
+const DEFAULT_AVATAR_HEIGHT = 44;
+const DEFAULT_AVATAR_WIDTH = 40;
+const DEFAULT_AVATAR_CONTAINER_PADDING = '15px';
 const reservationOption = {
   1: ['1'],
   2 : ['2', '1'],
@@ -29,6 +32,7 @@ const resetButton = userForm.querySelector('.ad-form__reset');
 const avatarPreview = userForm.querySelector('.ad-form-header__preview').querySelector('img');
 const photoContainer = userForm.querySelector('.ad-form__photo');
 const sliderElement = document.querySelector('.ad-form__slider');
+const avatarPreviewContainer = userForm.querySelector('.ad-form-header__preview');
 
 const pristine = new Pristine(userForm, {
   classTo: 'ad-form__element',
@@ -115,6 +119,10 @@ const resetPage = () => {
   });
   sliderElement.noUiSlider.set(DEFAULT_PRICE_FIELD_VALUE);
   avatarPreview.src = './img/muffin-grey.svg';
+  avatarPreview.height = DEFAULT_AVATAR_HEIGHT;
+  avatarPreview.width = DEFAULT_AVATAR_WIDTH;
+  avatarPreviewContainer.style.paddingLeft = DEFAULT_AVATAR_CONTAINER_PADDING;
+  avatarPreviewContainer.style.paddingRight = DEFAULT_AVATAR_CONTAINER_PADDING;
   photoContainer.innerHTML = '';
 };
 
